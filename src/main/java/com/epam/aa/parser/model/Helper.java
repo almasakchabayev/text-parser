@@ -85,6 +85,4 @@ public class Helper {
         });
         return words;
     }
-
-    public static List<Text>
 }
