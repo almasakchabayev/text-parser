@@ -1,22 +1,17 @@
 package com.epam.aa.parser.model;
 
-import java.util.ArrayList;
-import java.util.Arrays;
-import java.util.List;
+import java.util.HashMap;
+import java.util.Map;
 
 public class Symbol implements TextPart {
-
-//    public static final List<TextPart> PARAGRAPHS_DELIMINATOR = new ArrayList<TextPart>(Arrays.asList(new Symbol('\n')));
-//    public static final List<TextPart> SENTENCES_DELIMINATOR = new ArrayList<TextPart>(Arrays.asList(new Symbol('.'), new Symbol(' ')));
-//    public static final List<TextPart> WORDS_DELIMINATOR = new ArrayList<TextPart>(Arrays.asList(new Symbol(' ')));
     private char symbol;
+    private static Map<Character, Symbol> symbolsMap;
 
-    public Symbol(char symbol) {
+    private Symbol(char symbol) {
         this.symbol = symbol;
     }
 
-    public Symbol() {
-    }
+    private Symbol() {}
 
     public char getSymbol() {
         return symbol;
@@ -26,9 +21,16 @@ public class Symbol implements TextPart {
         this.symbol = symbol;
     }
 
-    @Override
-    public void print() {
-        System.out.print(symbol);
+    public static Symbol valueOf(char c) {
+        if (symbolsMap == null) {
+            symbolsMap = new HashMap<Character, Symbol>();
+        }
+        Symbol s = symbolsMap.get(c);
+        if (s == null) {
+            s = new Symbol(c);
+            symbolsMap.put(c, s);
+        }
+        return s;
     }
 
     @Override

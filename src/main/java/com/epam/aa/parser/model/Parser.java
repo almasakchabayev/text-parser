@@ -1,16 +1,40 @@
 package com.epam.aa.parser.model;
 
-import com.sun.xml.internal.ws.policy.privateutil.PolicyUtils;
-import sun.jvm.hotspot.debugger.win32.coff.COMDATSelectionTypes;
-
 import java.util.ArrayList;
 import java.util.Comparator;
 import java.util.List;
-import java.util.regex.Pattern;
 
-public class Helper {
-    public static List<TextPart> getParagraphs(Composite fullText) {
-        return fullText.getTextParts();
+public class Parser {
+    public static TextPart parse(String string, TextPart.Type type) {
+        if(string.length() == 0) return null;
+
+        Composite composite = new Composite(type);
+        if (string.length() == 1) {
+            Symbol symbol = Symbol.valueOf(string.charAt(0));
+            return symbol;
+        } else {
+            String[] split = string.split(type.getRegexForSplit());
+            for (String s : split) {
+                if (type.getChildren().size() == 1) {
+                    TextPart childComposite = parse(s, type.getChildren().get(0));
+                    composite.addTextPart(childComposite);
+                } else {
+                    if (s.matches("\\w+")) {
+                        TextPart childComposite = parse(s, type.getChildren().get(0));
+                        composite.addTextPart(childComposite);
+                    } else {
+                        TextPart childComposite = parse(s, type.getChildren().get(1));
+                        composite.addTextPart(childComposite);
+                    }
+                }
+            }
+        }
+        return composite;
+    }
+
+    public static List<TextPart> getParagraphs(Composite composite) {
+//        if (composite.getType() )
+        return composite.getTextParts();
     }
 
     public static List<TextPart> getSentences(Composite fullText) {

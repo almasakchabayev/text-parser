@@ -1,7 +1,8 @@
 package com.epam.aa.parser;
 
 import com.epam.aa.parser.model.Composite;
-import com.epam.aa.parser.model.Helper;
+import com.epam.aa.parser.model.Parser;
+import com.epam.aa.parser.model.TextPart;
 import com.thedeanda.lorem.Lorem;
 
 import java.io.*;
@@ -37,21 +38,13 @@ public class Runner {
         } catch (IOException e) {
             e.printStackTrace();
         }
-//        System.out.println(textFromFile);
-//        System.out.println("");
-//        System.out.println("");
 
+        Composite textComposite = (Composite) Parser.parse(textFromFile, TextPart.Type.TEXT);
+        System.out.println(textComposite.toString());
+        System.out.println(textComposite.stringify());
 
-        Composite textComposite = new Composite();
-        textComposite.parseToSymbols(textFromFile);
-//        System.out.println(Helper.getWords(textComposite));
-        System.out.println(Helper.getsortedWordsByNumberOfLetters(textComposite));
-//        System.out.println(textComposite.toString());
-//        System.out.println("");
-//        System.out.println("");
-//        System.out.println(textComposite.stringify());
-//        System.out.println("");
-//        System.out.println("");
-//        System.out.println(text);
+        Composite paragraghComposite = (Composite) textComposite.getTextParts().get(0);
+        System.out.println(paragraghComposite.toString());
+        System.out.println(paragraghComposite.stringify());
     }
 }
