@@ -7,27 +7,16 @@ import java.util.List;
 public class Parser {
     public static TextPart parse(String string, TextPart.Type type) {
         if(string.length() == 0) return null;
-
-        Composite composite = new Composite(type);
         if (string.length() == 1) {
             Symbol symbol = Symbol.valueOf(string.charAt(0));
             return symbol;
-        } else {
-            String[] split = string.split(type.getRegexForSplit());
-            for (String s : split) {
-                if (type.getChildren().size() == 1) {
-                    TextPart childComposite = parse(s, type.getChildren().get(0));
-                    composite.addTextPart(childComposite);
-                } else {
-                    if (s.matches("\\w+")) {
-                        TextPart childComposite = parse(s, type.getChildren().get(0));
-                        composite.addTextPart(childComposite);
-                    } else {
-                        TextPart childComposite = parse(s, type.getChildren().get(1));
-                        composite.addTextPart(childComposite);
-                    }
-                }
-            }
+        }
+
+        Composite composite = new Composite(type);
+        String[] split = string.split(type.getRegexForSplit());
+        for (String s : split) {
+            TextPart childComposite = parse(s, type.getChild());
+            composite.addTextPart(childComposite);
         }
         return composite;
     }

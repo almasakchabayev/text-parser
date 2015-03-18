@@ -10,21 +10,11 @@ public interface TextPart {
     public enum Type {
         TEXT, PARAGRAPH, SENTENCE, WORD, SYMBOL;
 
-        private List<Type> children = new ArrayList<Type>();
+            private static final Type[] values = values();
 
         private String RegexForSplit;
 
         static {
-
-            TEXT.children.add(PARAGRAPH);
-
-            PARAGRAPH.children.add(SENTENCE);
-
-            SENTENCE.children.add(WORD);
-            SENTENCE.children.add(SYMBOL);
-
-            WORD.children.add(SYMBOL);
-
             TEXT.RegexForSplit = "(?<=\\n)";
             PARAGRAPH.RegexForSplit = "(?<=\\.+\\s)(?=[A-Z])";
             SENTENCE.RegexForSplit = "(?<=[^\\w])(?=\\w)|(?<=\\w)(?=[^\\w])|(?<=[^\\w])(?=[^\\w])";
@@ -32,8 +22,11 @@ public interface TextPart {
             WORD.RegexForSplit = "(?<=\\w)";
         }
 
-        public List<Type> getChildren() {
-            return children;
+        public Type getChild() {
+            if (ordinal() == values.length) {
+                return null;
+            }
+            return values[ordinal() +1];
         }
 
         public String getRegexForSplit() {
