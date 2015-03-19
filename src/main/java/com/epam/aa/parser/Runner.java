@@ -41,10 +41,18 @@ public class Runner {
 
         Composite textComposite = (Composite) Parser.parse(textFromFile, TextPart.Type.TEXT);
         System.out.println(textComposite.toString());
+        System.out.println("");
         System.out.println(textComposite.stringify());
+        System.out.println("");
+        System.out.println("");
 
         Composite paragraghComposite = (Composite) textComposite.getTextParts().get(0);
         System.out.println(paragraghComposite.toString());
+        System.out.println("");
         System.out.println(paragraghComposite.stringify());
+        System.out.println("");
+        System.out.println("");
+
+        System.out.println(Parser.getsortedWordsByNumberOfLetters(textComposite));
     }
 }

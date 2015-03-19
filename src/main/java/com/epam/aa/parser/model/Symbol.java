@@ -4,21 +4,15 @@ import java.util.HashMap;
 import java.util.Map;
 
 public class Symbol implements TextPart {
-    private char symbol;
+    private static Type type = Type.SYMBOL;
     private static Map<Character, Symbol> symbolsMap;
+    private char symbol;
 
     private Symbol(char symbol) {
         this.symbol = symbol;
     }
 
-    private Symbol() {}
-
-    public char getSymbol() {
-        return symbol;
-    }
-
-    public void setSymbol(char symbol) {
-        this.symbol = symbol;
+    private Symbol() {
     }
 
     public static Symbol valueOf(char c) {
@@ -33,9 +27,22 @@ public class Symbol implements TextPart {
         return s;
     }
 
+    public char getSymbol() {
+        return symbol;
+    }
+
+    public void setSymbol(char symbol) {
+        this.symbol = symbol;
+    }
+
     @Override
     public String stringify() {
         return String.valueOf(symbol);
+    }
+
+    @Override
+    public Type getType() {
+        return type;
     }
 
     @Override
