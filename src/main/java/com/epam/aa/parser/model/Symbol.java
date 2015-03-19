@@ -12,12 +12,9 @@ public class Symbol implements TextPart {
         this.symbol = symbol;
     }
 
-    private Symbol() {
-    }
-
     public static Symbol valueOf(char c) {
         if (symbolsMap == null) {
-            symbolsMap = new HashMap<Character, Symbol>();
+            symbolsMap = new HashMap<>();
         }
         Symbol s = symbolsMap.get(c);
         if (s == null) {
@@ -25,14 +22,6 @@ public class Symbol implements TextPart {
             symbolsMap.put(c, s);
         }
         return s;
-    }
-
-    public char getSymbol() {
-        return symbol;
-    }
-
-    public void setSymbol(char symbol) {
-        this.symbol = symbol;
     }
 
     @Override

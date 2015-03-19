@@ -24,11 +24,11 @@ public class Composite implements TextPart {
     }
 
     public void addTextPart(TextPart textPart) {
-        if (textParts == null) textParts = new ArrayList<TextPart>();
+        if (textParts == null) textParts = new ArrayList<>();
         textParts.add(textPart);
     }
 
-    public void remove(TextPart textPart) {
+    public void removeTextPart(TextPart textPart) {
         if (textParts != null) textParts.remove(textPart);
     }
 
